@@ -1,4 +1,4 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-golang:latest
+FROM resin/%%RESIN_MACHINE_NAME%%-alpine-golang:latest
 
 ENV INITSYSTEM on
 ENV USER root
@@ -6,16 +6,23 @@ ENV HOME /data
 
 WORKDIR /usr/src/app
 
-RUN apt-get update && \
-    apt-get install -qy \
-      git \
-    && apt-get clean
+# Install dependencies
+RUN apk update && \
+    apk add \
+      sqlite
 
 ENV CAMLISTORE_HASH 7b78c50007780643798adf3fee4c84f3a10154c9
 RUN git clone https://github.com/camlistore/camlistore.git && \
     cd camlistore && \
     git reset --hard ${CAMLISTORE_HASH} && \
-    make
+    make && \
+    cp -r bin/* /bin && \
+    cd .. && rm -rf camlistore
+
+# Add server config template, to be filled out on start
+COPY server-config.json.template ${HOME}/.config/camlistore/server-config.json.template
+
+COPY start.sh ./start.sh
 
 CMD while : ; do echo "Idle..."; sleep 5; done
     
