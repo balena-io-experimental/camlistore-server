@@ -15,6 +15,7 @@ fi
 # Update config file
 cat ${CAMLICONFIG} | jq "(.auth=\"${CAMLISTORE_AUTH-localhost}\") | \
                          (.baseURL=\"${CAMLISTORE_BASEURL-https://${RESIN_DEVICE_UUID}.resindevice.io}\") | \
+                         (.shareHandler=${CAMLISTORE_SHAREHANDLER-false}) | \
                          (.listen=\":80\")" > "${CAMLICONFIG}.tmp"
 mv "${CAMLICONFIG}.tmp" "${CAMLICONFIG}"
 
