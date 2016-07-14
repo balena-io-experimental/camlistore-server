@@ -9,7 +9,8 @@ WORKDIR /usr/src/app
 # Install dependencies
 RUN apk update && \
     apk add \
-      sqlite
+      jq \
+    && rm -rf /var/cache/apk/
 
 ENV CAMLISTORE_HASH 7b78c50007780643798adf3fee4c84f3a10154c9
 RUN git clone https://github.com/camlistore/camlistore.git && \
@@ -19,11 +20,6 @@ RUN git clone https://github.com/camlistore/camlistore.git && \
     cp -r bin/* /bin && \
     cd .. && rm -rf camlistore
 
-# Add server config template, to be filled out on start
-COPY server-config.json.template ${HOME}/.config/camlistore/server-config.json.template
-
 COPY start.sh ./start.sh
 
-CMD while : ; do echo "Idle..."; sleep 5; done
-    
-    
+CMD ["/bin/bash", "start.sh"]
