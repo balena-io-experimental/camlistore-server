@@ -12,7 +12,7 @@ RUN apk update && \
       jq \
     && rm -rf /var/cache/apk/
 
-ENV CAMLISTORE_HASH 7b78c50007780643798adf3fee4c84f3a10154c9
+ENV CAMLISTORE_HASH bae6855aded97d13c470d9a76c3fe92464766df7
 RUN git clone https://github.com/camlistore/camlistore.git && \
     cd camlistore && \
     git reset --hard ${CAMLISTORE_HASH} && \
