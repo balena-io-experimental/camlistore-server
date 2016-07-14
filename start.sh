@@ -15,8 +15,7 @@ fi
 # Update config file
 cat ${CAMLICONFIG} | jq "(.auth=\"${CAMLISTORE_AUTH-localhost}\") | \
                          (.baseURL=\"${CAMLISTORE_BASEURL-https://${RESIN_DEVICE_UUID}.resindevice.io}\") | \
-                         (.listen=\":80\") | \
-                         (.runIndex=true)" > "${CAMLICONFIG}.tmp"
+                         (.listen=\":80\")" > "${CAMLICONFIG}.tmp"
 mv "${CAMLICONFIG}.tmp" "${CAMLICONFIG}"
 
 # Run camlistore server
