@@ -10,6 +10,7 @@ WORKDIR /usr/src/app
 RUN apk update && \
     apk add \
       jq \
+      libjpeg-turbo-utils \
     && rm -rf /var/cache/apk/
 
 ENV CAMLISTORE_HASH bae6855aded97d13c470d9a76c3fe92464766df7
