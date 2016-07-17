@@ -13,10 +13,10 @@ RUN apk update && \
       libjpeg-turbo-utils \
     && rm -rf /var/cache/apk/
 
-ENV CAMLISTORE_HASH bae6855aded97d13c470d9a76c3fe92464766df7
+ENV CAMLISTORE_VERSION 30f578fa19a9af8940f6f11a5950a402bbd488ef
 RUN git clone https://github.com/camlistore/camlistore.git && \
     cd camlistore && \
-    git reset --hard ${CAMLISTORE_HASH} && \
+    git reset --hard ${CAMLISTORE_VERSION} && \
     make && \
     cp -r bin/* /bin && \
     cd .. && rm -rf camlistore
